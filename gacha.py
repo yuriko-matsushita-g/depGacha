@@ -26,7 +26,7 @@ def play_gif():
     # GIFアニメーションの再生
     global gif_label, gif_frame
 
-    # result_labelを非表示（または空のテキスト）に設定
+    # GIF再生開始時にテキストを非表示にする
     result_label.config(text="")
 
     gif_frame += 1
@@ -35,7 +35,7 @@ def play_gif():
         window.after(100, play_gif)  # 100ミリ秒ごとにフレーム更新
     except IndexError:
         gif_frame = 0
-        display_random_person(data)
+        display_random_person(data)  # GIF再生終了時にテキストを表示
 
 csv_path = "members.csv"
 gif_path = "gacha.gif"
@@ -46,10 +46,6 @@ data = load_data(csv_path)
 window = tk.Tk()
 window.title("ガチャガチャアプリケーション")
 
-# test_label = ttk.Label(window, text="テストラベル")
-# test_label.pack()
-
-
 # GIFの読み込みとフレームの準備
 gif = Image.open(gif_path)
 gif_frames = []
@@ -57,7 +53,6 @@ for i in range(gif.n_frames):
     gif.seek(i)
     frame = ImageTk.PhotoImage(image=gif.copy())
     gif_frames.append(frame)
-
 
 gif_label = ttk.Label(window, image=gif_frames[0])
 gif_label.pack()
@@ -67,7 +62,8 @@ start_button.pack()
 
 fontStyle = tkFont.Font(family="Lucida Grande", size=20)
 
-result_label = ttk.Label(window, text="", font=fontStyle)
+# tk.Labelを使用して背景色を白に設定
+result_label = tk.Label(window, text="", font=fontStyle, bg="white")
 result_label.place(relx=0.5, rely=0.5, anchor='center')
 
 window.mainloop()
