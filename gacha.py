@@ -17,8 +17,11 @@ def display_random_person(data):
     if not filtered_data.empty:
         person = filtered_data.sample().iloc[0]
         result_label.config(text=f"{person['名前']} - {person['組織フルパス']}")
+        # GIF再生が終了したので、テキストを表示する
+        result_label.place(relx=0.5, rely=0.5, anchor='center')
     else:
         result_label.config(text="該当する人はいません")
+        result_label.place(relx=0.5, rely=0.5, anchor='center')
 
 gif_frame = 0
 
@@ -27,7 +30,7 @@ def play_gif():
     global gif_label, gif_frame
 
     # GIF再生開始時にテキストを非表示にする
-    result_label.config(text="")
+    result_label.place_forget()
 
     gif_frame += 1
     try:
@@ -64,6 +67,6 @@ fontStyle = tkFont.Font(family="Lucida Grande", size=20)
 
 # tk.Labelを使用して背景色を白に設定
 result_label = tk.Label(window, text="", font=fontStyle, bg="white")
-result_label.place(relx=0.5, rely=0.5, anchor='center')
+# result_label.place(relx=0.5, rely=0.5, anchor='center')  # 初期状態では表示しない
 
 window.mainloop()
