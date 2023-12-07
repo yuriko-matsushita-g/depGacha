@@ -35,7 +35,7 @@ def play_gif():
     gif_frame += 1
     try:
         gif_label.config(image=gif_frames[gif_frame])
-        window.after(100, play_gif)  # 100ミリ秒ごとにフレーム更新
+        window.after(180, play_gif)  # 再生速度を調整
     except IndexError:
         gif_frame = 0
         display_random_person(data)  # GIF再生終了時にテキストを表示
