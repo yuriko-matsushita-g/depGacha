@@ -16,12 +16,19 @@ def display_random_person(data):
     # フィルタリングされたデータからランダムに選択
     if not filtered_data.empty:
         person = filtered_data.sample().iloc[0]
-        result_label.config(text=f"{person['名前']} - {person['組織フルパス']}")
-        # GIF再生が終了したので、テキストを表示する
-        result_label.place(relx=0.5, rely=0.5, anchor='center')
+        name_text = f"{person['名前']}（{person['名前（読み仮名）']}）"
+        org_text = f"{person['組織フルパス']}"
+        result_label.config(text=name_text)
+        org_label.config(text=org_text)
+        # 配置を更新
+        result_label.place(relx=0.5, rely=0.4, anchor='center')
+        org_label.place(relx=0.5, rely=0.6, anchor='center')
     else:
         result_label.config(text="該当する人はいません")
+        org_label.config(text="")
+        # 配置を更新
         result_label.place(relx=0.5, rely=0.5, anchor='center')
+        org_label.place_forget()
 
 gif_frame = 0
 
@@ -31,6 +38,7 @@ def play_gif():
 
     # GIF再生開始時にテキストを非表示にする
     result_label.place_forget()
+    org_label.place_forget()
 
     gif_frame += 1
     try:
@@ -63,10 +71,22 @@ gif_label.pack()
 start_button = ttk.Button(window, text="ガチャを回す", command=play_gif)
 start_button.pack()
 
-fontStyle = tkFont.Font(family="Lucida Grande", size=20)
+# フォントスタイルの設定
+name_font = tkFont.Font(family="Lucida Grande", size=24)
+kana_font = tkFont.Font(family="Lucida Grande", size=20)
+org_font = tkFont.Font(family="Lucida Grande", size=12)
+
+# 名前と読み仮名を表示するラベル
+result_label = tk.Label(window, text="", font=name_font, bg="white")
+# 組織名を表示するラベル
+org_label = tk.Label(window, text="", font=org_font, bg="white")
+
+# ラベルを最初は表示しない
+result_label.place_forget()
+org_label.place_forget()
 
 # tk.Labelを使用して背景色を白に設定
-result_label = tk.Label(window, text="", font=fontStyle, bg="white")
+# result_label = tk.Label(window, text="", font=fontStyle, bg="white")
 # result_label.place(relx=0.5, rely=0.5, anchor='center')  # 初期状態では表示しない
 
 window.mainloop()
