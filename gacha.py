@@ -21,8 +21,8 @@ def display_random_person(data):
         result_label.config(text=name_text)
         org_label.config(text=org_text)
         # 配置を更新
-        result_label.place(relx=0.5, rely=0.4, anchor='center')
-        org_label.place(relx=0.5, rely=0.6, anchor='center')
+        result_label.place(relx=0.5, rely=0.35, anchor='center')
+        org_label.place(relx=0.5, rely=0.55, anchor='center')
     else:
         result_label.config(text="該当する人はいません")
         org_label.config(text="")
@@ -72,9 +72,8 @@ start_button = ttk.Button(window, text="ガチャを回す", command=play_gif)
 start_button.pack()
 
 # フォントスタイルの設定
-name_font = tkFont.Font(family="Lucida Grande", size=24)
-kana_font = tkFont.Font(family="Lucida Grande", size=20)
-org_font = tkFont.Font(family="Lucida Grande", size=12)
+name_font = tkFont.Font(family="Lucida Grande", size=45)
+org_font = tkFont.Font(family="Lucida Grande", size=18)
 
 # 名前と読み仮名を表示するラベル
 result_label = tk.Label(window, text="", font=name_font, bg="white")
